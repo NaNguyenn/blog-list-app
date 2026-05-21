@@ -44,7 +44,7 @@ test("<BlogDetail /> shows blog information and likes to unauthenticated users w
     "href",
     blog.url,
   );
-  expect(screen.getByText(`likes ${blog.likes}`)).toBeInTheDocument();
+  expect(screen.getByText(`${blog.likes} likes`)).toBeInTheDocument();
   expect(screen.getByText(`Added by ${blog.user.name}`)).toBeInTheDocument();
   expect(
     screen.queryByRole("button", { name: "like" }),

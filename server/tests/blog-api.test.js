@@ -214,6 +214,8 @@ test("blog can be updated", async () => {
   const blogsAtStart = await helper.blogsInDb();
   const blogToUpdate = blogsAtStart[0];
 
+  const token = await loginUser();
+
   const updatedBlog = {
     title: "Updated Blog Title",
     author: "Updated Author",
@@ -221,7 +223,11 @@ test("blog can be updated", async () => {
     likes: 99,
   };
 
-  await api.put(`/api/blogs/${blogToUpdate.id}`).send(updatedBlog).expect(200);
+  await api
+    .put(`/api/blogs/${blogToUpdate.id}`)
+    .set("Authorization", `Bearer ${token}`)
+    .send(updatedBlog)
+    .expect(200);
 
   const blogsAtEnd = await helper.blogsInDb();
   const updatedBlogInDb = blogsAtEnd.find(
@@ -235,9 +241,14 @@ test("blog can be updated", async () => {
 });
 
 test("fails with status code 400 id is invalid", async () => {
+  const token = await loginUser();
   const invalidId = "invalididda";
 
-  await api.put(`/api/blogs/${invalidId}`).send({}).expect(400);
+  await api
+    .put(`/api/blogs/${invalidId}`)
+    .set("Authorization", `Bearer ${token}`)
+    .send({})
+    .expect(400);
 });
 
 after(async () => {

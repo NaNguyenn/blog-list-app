@@ -56,25 +56,31 @@ const CreateBlogForm = () => {
           <TextField
             {...title}
             name="Title"
-            data-testid="title-input"
+            slotProps={{
+              htmlInput: { 'data-testid': 'title-input' }
+            }}
             label="Title"
             variant="outlined"
           />
           <TextField
             {...author}
             name="Author"
-            data-testid="author-input"
+            slotProps={{
+              htmlInput: { 'data-testid': 'author-input' }
+            }}
             label="Author"
             variant="outlined"
           />
           <TextField
             {...url}
             name="Url"
-            data-testid="url-input"
+            slotProps={{
+              htmlInput: { 'data-testid': 'url-input' }
+            }}
             label="Url"
             variant="outlined"
           />
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" name="create">
             create
           </Button>
         </Box>
