@@ -1,3 +1,4 @@
+const config = require("./config");
 const logger = require("./logger");
 const jwt = require("jsonwebtoken");
 
@@ -42,7 +43,7 @@ const userExtractor = (request, response, next) => {
     }
 
     const token = authorization.replace("Bearer ", "");
-    const decodedToken = jwt.verify(token, process.env.SECRET);
+    const decodedToken = jwt.verify(token, config.SECRET);
 
     if (!decodedToken.id) {
       return response.status(401).json({ error: "token invalid" });
