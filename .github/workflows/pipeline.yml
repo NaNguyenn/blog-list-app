@@ -1,0 +1,26 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  simple_deployment_pipeline:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Install dependencies
+        run: npm install --prefix server && npm install --prefix client
+      - name: Check style
+        run: npm run lint:server && npm run lint:client
+      - name: Run tests
+        run: npm run test:server && npm run test:client
+      - name: Build project
+        run: npm run build
+      - name: Trigger deployment
+        run: curl ${{ secrets.RENDER_DEPLOY_HOOK }}
