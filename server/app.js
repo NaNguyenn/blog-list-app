@@ -34,6 +34,9 @@ app.use("/api/login", loginRouter);
 if (process.env.NODE_ENV === "production") {
   const frontendDistPath = path.join(__dirname, "../client/dist");
   app.use(express.static(frontendDistPath));
+  app.get("/health", (req, res) => {
+    res.send("ok");
+  });
   app.get("/{*splat}", (request, response, next) => {
     if (request.path.startsWith("/api/")) {
       return next();
