@@ -17,7 +17,7 @@ const BlogList = () => {
 
   return (
     <>
-      <h2>blogs</h2>
+      <h2>blogs list</h2>
       {sortedBlogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}
